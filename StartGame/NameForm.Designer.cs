@@ -70,6 +70,7 @@
             lblError.Size = new Size(32, 15);
             lblError.TabIndex = 3;
             lblError.Text = "Error";
+            lblError.Visible = false;
             // 
             // NameForm
             // 

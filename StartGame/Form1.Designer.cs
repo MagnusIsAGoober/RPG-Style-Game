@@ -1,6 +1,6 @@
 ﻿namespace StartGame
 {
-    partial class Startup
+    partial class Form1
     {
         /// <summary>
         ///  Required designer variable.
@@ -63,7 +63,7 @@
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
             // 
-            // Startup
+            // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -71,8 +71,8 @@
             Controls.Add(pictureBox1);
             Controls.Add(StartGameBtn);
             Controls.Add(Title);
-            Name = "Startup";
-            Text = "Startup";
+            Name = "Form1";
+            Text = "Title";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }

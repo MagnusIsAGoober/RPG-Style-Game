@@ -12,13 +12,21 @@ namespace StartGame
 {
     public partial class NameForm : Form
     {
-        public NameForm()
+
+        private Form1 caller;
+        public NameForm(Form1 callerForm)
         {
             InitializeComponent();
+
+            //save the reference to the caller
+            caller = callerForm;
         }
 
         private void ConfirmBtn_Click(object sender, EventArgs e)
         {
+
+            lblError.Visible = false;
+
             //Check if the player supplied a name
             if (!String.IsNullOrWhiteSpace(txtBoxNameEntry.Text))
             {
@@ -27,6 +35,7 @@ namespace StartGame
             else
             {
                 //The name was not entered
+                lblError.Visible = true;
                 lblError.Text = "Wha.. Surely you have a name";
             }
         }
