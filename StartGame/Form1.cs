@@ -4,6 +4,8 @@ namespace StartGame
 {
     public partial class Form1 : Form
     {
+
+        public String PlayerName;
         public Form1()
         {
             InitializeComponent();

@@ -31,6 +31,10 @@ namespace StartGame
             if (!String.IsNullOrWhiteSpace(txtBoxNameEntry.Text))
             {
                 //Name was given, pass it back to the caller form.
+                caller.PlayerName = txtBoxNameEntry.Text.Trim();
+
+                //Close this form
+                this.Close();
             }
             else
             {
