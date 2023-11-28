@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,6 +21,17 @@ namespace StartGame
 
             //save the reference to the caller
             caller = callerForm;
+
+            //Create a keydown event for when a key is pressed in the textbox
+            tbNameEntry.KeyDown += (sender, args) =>
+            {
+                //Check if the key that is pressed is enter
+                if (args.KeyCode == Keys.Enter)
+                {
+                    //Click the submit name button
+                    BtnConfirmName.PerformClick();
+                }
+            };
         }
 
         private void ConfirmBtn_Click(object sender, EventArgs e)
@@ -28,10 +40,10 @@ namespace StartGame
             lblError.Visible = false;
 
             //Check if the player supplied a name
-            if (!String.IsNullOrWhiteSpace(txtBoxNameEntry.Text))
+            if (!String.IsNullOrWhiteSpace(tbNameEntry.Text))
             {
-                //Name was given, pass it back to the caller form.
-                caller.PlayerName = txtBoxNameEntry.Text.Trim();
+                //Start the game in the caller form
+                caller.StartGame(tbNameEntry.Text.Trim());
 
                 //Close this form
                 this.Close();
@@ -42,6 +54,8 @@ namespace StartGame
                 lblError.Visible = true;
                 lblError.Text = "Wha.. Surely you have a name";
             }
+
+
         }
     }
 }

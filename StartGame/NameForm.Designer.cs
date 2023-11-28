@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             BtnConfirmName = new Button();
-            txtBoxNameEntry = new TextBox();
+            tbNameEntry = new TextBox();
             lblEnterName = new Label();
             lblError = new Label();
             SuspendLayout();
@@ -44,12 +44,12 @@
             BtnConfirmName.UseVisualStyleBackColor = true;
             BtnConfirmName.Click += ConfirmBtn_Click;
             // 
-            // txtBoxNameEntry
+            // tbNameEntry
             // 
-            txtBoxNameEntry.Location = new Point(12, 57);
-            txtBoxNameEntry.Name = "txtBoxNameEntry";
-            txtBoxNameEntry.Size = new Size(250, 23);
-            txtBoxNameEntry.TabIndex = 1;
+            tbNameEntry.Location = new Point(12, 57);
+            tbNameEntry.Name = "tbNameEntry";
+            tbNameEntry.Size = new Size(250, 23);
+            tbNameEntry.TabIndex = 1;
             // 
             // lblEnterName
             // 
@@ -80,7 +80,7 @@
             ControlBox = false;
             Controls.Add(lblError);
             Controls.Add(lblEnterName);
-            Controls.Add(txtBoxNameEntry);
+            Controls.Add(tbNameEntry);
             Controls.Add(BtnConfirmName);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -93,7 +93,7 @@
         #endregion
 
         private Button BtnConfirmName;
-        private TextBox txtBoxNameEntry;
+        private TextBox tbNameEntry;
         private Label lblEnterName;
         private Label lblError;
     }

@@ -20,5 +20,16 @@ namespace StartGame
             nameForm.ShowDialog();
 
         }
+
+        public void StartGame(String playerName)
+        {
+            //Assign the player name
+            PlayerName = playerName;
+
+            //Display the playername and hide the game button
+            StartGameBtn.Visible = false;
+            tblActionLayout.Visible = true;
+            tbGameLog.Visible = true;
+        }
     }
 }

@@ -1,0 +1,6 @@
+﻿Build started...
+1>------ Build started: Project: StartGame, Configuration: Debug Any CPU ------
+1>Skipping analyzers to speed up the build. You can execute 'Build' or 'Rebuild' command to run analyzers.
+1>StartGame -> C:\Users\2013.102253\Desktop\WinformApps\MyGame\StartGame\bin\Debug\net6.0-windows\StartGame.dll
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+========== Build started at 3:25 PM and took 01.809 seconds ==========
