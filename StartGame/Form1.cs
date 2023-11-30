@@ -4,6 +4,14 @@ namespace StartGame
 {
     public partial class Form1 : Form
     {
+        bool goLeft, goRight, goUp, goDown, gameOver;
+        string facing = "up";
+        int playerHealth = 3;
+        int speed = 7;
+        int projectileSpeed = 5;
+        Random randNum = new Random();
+
+        List<PictureBox> ProjectileList = new List<PictureBox>();
 
         public String PlayerName;
         public Form1()
@@ -29,7 +37,31 @@ namespace StartGame
             //Display the playername and hide the game button
             StartGameBtn.Visible = false;
             tblActionLayout.Visible = true;
-            tbGameLog.Visible = true;
+            gbGameView.Visible = true;
+        }
+
+        private void Title_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainTimerEvent(object sender, EventArgs e)
+        {
+
+        }
+
+        private void KeyIsDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.A)
+            {
+                goLeft = true;
+            }
+
+        }
+
+        private void KeyIsUp(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

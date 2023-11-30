@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyGame", "MyGame\MyGame.csproj", "{48EAAB08-7E38-494C-8440-395B036A1B61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StartGame", "StartGame\StartGame.csproj", "{29D36805-CDAF-4BB6-807A-B3D9B0EC16D1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyRPG", "StartGame\MyRPG.csproj", "{29D36805-CDAF-4BB6-807A-B3D9B0EC16D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
