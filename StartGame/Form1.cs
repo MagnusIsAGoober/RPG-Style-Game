@@ -1,3 +1,4 @@
+using MyRPG;
 using System.Windows.Forms;
 
 namespace StartGame
@@ -13,7 +14,7 @@ namespace StartGame
 
         List<PictureBox> ProjectileList = new List<PictureBox>();
 
-        public String PlayerName;
+        public Player player;
         public Form1()
         {
             InitializeComponent();
@@ -32,7 +33,10 @@ namespace StartGame
         public void StartGame(String playerName)
         {
             //Assign the player name
-            PlayerName = playerName;
+            player = new Player()
+            {
+
+            };
 
             //Display the playername and hide the game button
             StartGameBtn.Visible = false;
