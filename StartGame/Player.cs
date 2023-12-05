@@ -51,14 +51,17 @@ namespace MyRPG
             //return Health;
         }
 
-        public void Heal()
+        public void Heal(int amount_to_heal)
         {
+            Health = (Health + amount_to_heal > 100) ? 100 : (Health + amount_to_heal);
 
+            Console.WriteLine(Name + " was healed for " + amount_to_heal + " Health! You now have" + Health + " remaining.");
         }
 
         public void Die()
         {
-
+            Console.WriteLine(Name + " was slain!");
+            IsDead = true;
         }
     }
 }

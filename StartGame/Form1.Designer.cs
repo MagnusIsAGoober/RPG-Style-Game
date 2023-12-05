@@ -37,8 +37,8 @@
             BtnAttack = new Button();
             btnMulti = new Button();
             gbGameView = new GroupBox();
+            tbGameLog = new TextBox();
             GameTimer = new System.Windows.Forms.Timer(components);
-            textBox1 = new TextBox();
             tblActionLayout.SuspendLayout();
             gbGameView.SuspendLayout();
             SuspendLayout();
@@ -77,59 +77,63 @@
             tblActionLayout.Controls.Add(btnHeal, 0, 1);
             tblActionLayout.Controls.Add(BtnAttack, 0, 0);
             tblActionLayout.Controls.Add(btnMulti, 1, 0);
-            tblActionLayout.Location = new Point(28, 323);
+            tblActionLayout.Location = new Point(28, 307);
             tblActionLayout.Name = "tblActionLayout";
             tblActionLayout.RowCount = 2;
             tblActionLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tblActionLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tblActionLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tblActionLayout.Size = new Size(523, 53);
+            tblActionLayout.Size = new Size(523, 69);
             tblActionLayout.TabIndex = 3;
             tblActionLayout.Visible = false;
             // 
             // btnGuard
             // 
             btnGuard.Dock = DockStyle.Fill;
-            btnGuard.Location = new Point(3, 29);
+            btnGuard.Location = new Point(3, 37);
             btnGuard.Name = "btnGuard";
-            btnGuard.Size = new Size(255, 21);
+            btnGuard.Size = new Size(255, 29);
             btnGuard.TabIndex = 3;
             btnGuard.Text = "Guard";
             btnGuard.UseVisualStyleBackColor = true;
+            btnGuard.Click += btnGuard_Click;
             // 
             // btnHeal
             // 
             btnHeal.Dock = DockStyle.Fill;
-            btnHeal.Location = new Point(264, 29);
+            btnHeal.Location = new Point(264, 37);
             btnHeal.Name = "btnHeal";
-            btnHeal.Size = new Size(256, 21);
+            btnHeal.Size = new Size(256, 29);
             btnHeal.TabIndex = 2;
             btnHeal.Text = "Heal";
             btnHeal.UseVisualStyleBackColor = true;
+            btnHeal.Click += btnHeal_Click;
             // 
             // BtnAttack
             // 
             BtnAttack.Dock = DockStyle.Fill;
             BtnAttack.Location = new Point(3, 3);
             BtnAttack.Name = "BtnAttack";
-            BtnAttack.Size = new Size(255, 20);
+            BtnAttack.Size = new Size(255, 28);
             BtnAttack.TabIndex = 0;
             BtnAttack.Text = "Attack";
             BtnAttack.UseVisualStyleBackColor = true;
+            BtnAttack.Click += BtnAttack_Click;
             // 
             // btnMulti
             // 
             btnMulti.Dock = DockStyle.Fill;
             btnMulti.Location = new Point(264, 3);
             btnMulti.Name = "btnMulti";
-            btnMulti.Size = new Size(256, 20);
+            btnMulti.Size = new Size(256, 28);
             btnMulti.TabIndex = 1;
             btnMulti.Text = "Multi";
             btnMulti.UseVisualStyleBackColor = true;
+            btnMulti.Click += btnMulti_Click;
             // 
             // gbGameView
             // 
-            gbGameView.Controls.Add(textBox1);
+            gbGameView.Controls.Add(tbGameLog);
             gbGameView.Controls.Add(tblActionLayout);
             gbGameView.Location = new Point(22, 44);
             gbGameView.Name = "gbGameView";
@@ -139,20 +143,20 @@
             gbGameView.Text = "gbGameView";
             gbGameView.Visible = false;
             // 
+            // tbGameLog
+            // 
+            tbGameLog.BackColor = SystemColors.WindowText;
+            tbGameLog.ForeColor = Color.Ivory;
+            tbGameLog.Location = new Point(28, 22);
+            tbGameLog.Multiline = true;
+            tbGameLog.Name = "tbGameLog";
+            tbGameLog.ScrollBars = ScrollBars.Vertical;
+            tbGameLog.Size = new Size(523, 279);
+            tbGameLog.TabIndex = 0;
+            // 
             // GameTimer
             // 
             GameTimer.Tick += MainTimerEvent;
-            // 
-            // textBox1
-            // 
-            textBox1.BackColor = SystemColors.WindowText;
-            textBox1.ForeColor = Color.Ivory;
-            textBox1.Location = new Point(28, 22);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.ScrollBars = ScrollBars.Vertical;
-            textBox1.Size = new Size(523, 295);
-            textBox1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -184,6 +188,6 @@
         private Button btnMulti;
         private GroupBox gbGameView;
         private System.Windows.Forms.Timer GameTimer;
-        private TextBox textBox1;
+        private TextBox tbGameLog;
     }
 }
