@@ -12,6 +12,8 @@ namespace MyRPG
         public Boss() : base ("Big Boss")
             {
                 Health = 150;
+
+                MaxAttackDMG = 50;
             }
 
     }

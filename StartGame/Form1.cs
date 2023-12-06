@@ -17,6 +17,8 @@ namespace StartGame
 
         private Player player;
         private Enemy currentEnemy;
+        private Random random;
+        private const int maxPlayerAttackDMG = 10;
         public Form1()
         {
             InitializeComponent();
@@ -40,6 +42,9 @@ namespace StartGame
                 Name = playerName
             };
 
+            //Init the random class
+            random = new Random();
+
             //Display the playername and hide the game button
             StartGameBtn.Visible = false;
             tblActionLayout.Visible = true;
@@ -52,7 +57,7 @@ namespace StartGame
             currentEnemy = new Enemy("Giant Crab");
 
             //write the text that we encountered the enemy
-            tbGameLog.AppendText(playerName + " You have encountered a " + currentEnemy.Name + "!" + Environment.NewLine + "What would you like to do?");
+            tbGameLog.AppendText(playerName + " You have encountered a " + currentEnemy.Name + "!" + Environment.NewLine + "What would you like to do?" + Environment.NewLine);
         }
         private void PerformAction(string Action)
         {
@@ -61,17 +66,54 @@ namespace StartGame
             {
                 case "1":
                     //Write out the attack text
-                    tbGameLog.AppendText("You used single attack on the " + currentEnemy.Name);
+                    tbGameLog.AppendText("You used single attack on the " + currentEnemy.Name + Environment.NewLine);
+
+                    // Attack the enemy
+                    currentEnemy.GetsHit(random.Next(1, maxPlayerAttackDMG));
                     break;
                 case "2":
+                    //Write out the multi attack text
+                    tbGameLog.AppendText("You used multi attack on the " + currentEnemy.Name + Environment.NewLine);
+
+                    // Loop three times to perform the multi attack
+                    for (int i = 0; i < 3; i++)
+                    {
+                        currentEnemy.GetsHit(random.Next(1, maxPlayerAttackDMG));
+
+                        //check if enemy is dead
+                        if (currentEnemy.IsDead == true)
+                        {
+                            break;
+                        }
+
+                    }
                     break;
                 case "3":
+                    //Write out the guard text
+                    tbGameLog.AppendText("You use guard!" + Environment.NewLine);
+
+                    // set that the player guarding is true
+                    player.IsGuarding = true;
                     break;
                 case "4":
+                    //Write out the heal text
+                    tbGameLog.AppendText("You use heal!" + Environment.NewLine);
+
+                    // set that the player guarding is true
+                    player.Heal(random.Next(1, 15));
                     break;
                 default: 
                     break;
             }
+
+            //check if enemy is dead
+            if (!currentEnemy.IsDead)
+            {
+                //have the enemy attack the player and show via txt
+                tbGameLog.AppendText(currentEnemy.Name + " Attacks the player, " + player.Name + " has " + player.Health + " health remaining" + Environment.NewLine);
+            }
+
+        
         }
         private void BtnAttack_Click(object sender, EventArgs e)
         {

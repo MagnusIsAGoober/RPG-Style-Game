@@ -15,11 +15,15 @@ namespace MyRPG
 
         public bool IsDead { get; set; }
 
+        public int MaxAttackDMG { get; set; }
+
         public Enemy(string name)
         {
             Health = 100;
 
             Name = name;
+
+            MaxAttackDMG = 10;
         }
 
         //this gets called when the enemy is hit
