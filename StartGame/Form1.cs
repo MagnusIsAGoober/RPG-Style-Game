@@ -96,9 +96,14 @@ namespace StartGame
                     player.IsGuarding = true;
                     break;
                 case "4":
+
+                    int amount_to_heal = random.Next(1, 15);
+
+                    player.Heal(amount_to_heal);
                     //Write out the heal text
                     tbGameLog.AppendText("You use heal!" + Environment.NewLine);
 
+                    tbGameLog.AppendText(player.Name + " was healed for " + amount_to_heal + " Health! You now have" + Health + " remaining.");
                     // set that the player guarding is true
                     player.Heal(random.Next(1, 15));
                     break;
@@ -109,11 +114,60 @@ namespace StartGame
             //check if enemy is dead
             if (!currentEnemy.IsDead)
             {
+                if (player.IsGuarding)
+                {
+                    tbGameLog.AppendText(Name + " gaurded the blow and was unharmed!");
+
+                    //remove guard
+                    player.IsGuarding = false;
+                }
+                else
+                {
+                    player.Health = player.Health - hit_value;
+
+                    Console.WriteLine(Name + " was hit for " + hit_value + " damage! You now have" + Health + " remaining.");
+
+                }
+
                 //have the enemy attack the player and show via txt
-                tbGameLog.AppendText(currentEnemy.Name + " Attacks the player, " + player.Name + " has " + player.Health + " health remaining" + Environment.NewLine);
+                player.GetsHit(random.Next(1, currentEnemy.MaxAttackDMG));
+                tbGameLog.AppendText(currentEnemy.Name + "Attacks the player, Leaving the player with " + player.Health + "Health" + Environment.NewLine);
+                
             }
 
-        
+            //check if player is dead
+            if (currentEnemy.IsDead)
+            {
+                //have the enemy attack the player and show via txt
+                if (currentEnemy is Boss)
+                {
+                    GameOver("Congrats! " + player.Name + " You have defeated the final boss!");
+                }
+                else
+                {
+                    currentEnemy = new Boss();
+                    //write the text that we encountered the boos
+                    tbGameLog.AppendText(player.Name + " You have encountered a " + currentEnemy.Name + "!" + Environment.NewLine + "What would you like to do?" + Environment.NewLine);
+
+                }
+            }
+            else if ( player.IsDead)
+            {
+
+                GameOver("You were slain...");
+            }
+
+        }
+
+        private void GameOver(string GameOverText)
+        {
+
+            tbGameLog.AppendText(GameOverText);
+
+            StartGameBtn.Visible = true;
+            StartGameBtn.Text = "Restart?";
+
+            gbGameView.Visible = false;
         }
         private void BtnAttack_Click(object sender, EventArgs e)
         {

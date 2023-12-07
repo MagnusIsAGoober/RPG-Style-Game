@@ -28,27 +28,15 @@ namespace MyRPG
         //hit value is the amount of damage an player will take
         public void GetsHit(int hit_value)
         {
-            if (IsGuarding)
-            {
-                Console.WriteLine(Name + " gaurded the blow and was unharmed!");
 
-                //remove guard
-                IsGuarding = false;
-            }
-            else
-            {
-                Health = Health - hit_value;
+            Console.WriteLine(Name + " was hit for " + hit_value + " damage! And has " + Health + " remaining.");
 
-                Console.WriteLine(Name + " was hit for " + hit_value + " damage! You now have" + Health + " remaining.");
-
-            }
 
             if (Health <= 0)
             {
                 Die();
             }
 
-            //return Health;
         }
 
         public void Heal(int amount_to_heal)
