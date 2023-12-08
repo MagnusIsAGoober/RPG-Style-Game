@@ -19,6 +19,7 @@ namespace StartGame
         private Enemy currentEnemy;
         private Random random;
         private const int maxPlayerAttackDMG = 10;
+
         public Form1()
         {
             InitializeComponent();
@@ -36,6 +37,7 @@ namespace StartGame
 
         public void StartGame(String playerName)
         {
+            player.Health = 100;
             //Assign the player name
             player = new Player()
             {
@@ -49,6 +51,9 @@ namespace StartGame
             StartGameBtn.Visible = false;
             tblActionLayout.Visible = true;
             gbGameView.Visible = true;
+            pbHealth.Visible = true;
+            lblHealth.Visible = true;
+
 
             //Write out the start game text to the textbox
             tbGameLog.Text = ("Welcome " + playerName + "!" + "." + Environment.NewLine);
@@ -61,15 +66,22 @@ namespace StartGame
         }
         private void PerformAction(string Action)
         {
+            int hit_value;
             //check action
-            switch(Action)
+            switch (Action)
             {
                 case "1":
                     //Write out the attack text
                     tbGameLog.AppendText("You used single attack on the " + currentEnemy.Name + Environment.NewLine);
 
+
+                    hit_value = random.Next(1, maxPlayerAttackDMG);
+
                     // Attack the enemy
-                    currentEnemy.GetsHit(random.Next(1, maxPlayerAttackDMG));
+                    currentEnemy.GetsHit(hit_value);
+
+                    //write it got hit
+                    tbGameLog.AppendText(currentEnemy.Name + " was hit for " + hit_value + " damage! And has " + currentEnemy.Health + " health remaining." + Environment.NewLine);
                     break;
                 case "2":
                     //Write out the multi attack text
@@ -78,7 +90,13 @@ namespace StartGame
                     // Loop three times to perform the multi attack
                     for (int i = 0; i < 3; i++)
                     {
-                        currentEnemy.GetsHit(random.Next(1, maxPlayerAttackDMG));
+                        hit_value = random.Next(1, maxPlayerAttackDMG);
+
+                        // Attack the enemy
+                        currentEnemy.GetsHit(hit_value);
+
+                        //write it got hit
+                        tbGameLog.AppendText(currentEnemy.Name + " was hit for " + hit_value + " damage! And has " + currentEnemy.Health + " health remaining." + Environment.NewLine);
 
                         //check if enemy is dead
                         if (currentEnemy.IsDead == true)
@@ -103,11 +121,11 @@ namespace StartGame
                     //Write out the heal text
                     tbGameLog.AppendText("You use heal!" + Environment.NewLine);
 
-                    tbGameLog.AppendText(player.Name + " was healed for " + amount_to_heal + " Health! You now have" + Health + " remaining.");
+                    tbGameLog.AppendText(player.Name + " was healed for " + amount_to_heal + " Health! You now have" + player.Health + " remaining." + Environment.NewLine);
                     // set that the player guarding is true
                     player.Heal(random.Next(1, 15));
                     break;
-                default: 
+                default:
                     break;
             }
 
@@ -116,32 +134,32 @@ namespace StartGame
             {
                 if (player.IsGuarding)
                 {
-                    tbGameLog.AppendText(Name + " gaurded the blow and was unharmed!");
+                    tbGameLog.AppendText(Name + " gaurded the blow and was unharmed!" + Environment.NewLine);
 
                     //remove guard
                     player.IsGuarding = false;
                 }
                 else
                 {
-                    player.Health = player.Health - hit_value;
-
-                    Console.WriteLine(Name + " was hit for " + hit_value + " damage! You now have" + Health + " remaining.");
+                    //have the enemy attack the player and show via txt
+                    player.GetsHit(random.Next(1, currentEnemy.MaxAttackDMG));
+                    tbGameLog.AppendText(currentEnemy.Name + "Attacks the player, Leaving the player with " + player.Health + "Health" + Environment.NewLine + Environment.NewLine);
 
                 }
 
-                //have the enemy attack the player and show via txt
-                player.GetsHit(random.Next(1, currentEnemy.MaxAttackDMG));
-                tbGameLog.AppendText(currentEnemy.Name + "Attacks the player, Leaving the player with " + player.Health + "Health" + Environment.NewLine);
-                
+
             }
 
             //check if player is dead
             if (currentEnemy.IsDead)
             {
+
+                tbGameLog.AppendText(currentEnemy.Name + " was slain " + Environment.NewLine);
+
                 //have the enemy attack the player and show via txt
                 if (currentEnemy is Boss)
                 {
-                    GameOver("Congrats! " + player.Name + " You have defeated the final boss!");
+                    GameOver("Congrats! " + player.Name + " You have defeated the final boss!" + Environment.NewLine);
                 }
                 else
                 {
@@ -151,10 +169,18 @@ namespace StartGame
 
                 }
             }
-            else if ( player.IsDead)
+            else if (player.IsDead)
             {
 
-                GameOver("You were slain...");
+                GameOver("You were slain..." + Environment.NewLine);
+            }
+            if (pbHealth.Value < 0)
+            {
+                pbHealth.Value = 0;
+            }
+            else
+            {
+                pbHealth.Value = player.Health;
             }
 
         }
@@ -168,6 +194,8 @@ namespace StartGame
             StartGameBtn.Text = "Restart?";
 
             gbGameView.Visible = false;
+            pbHealth.Visible = false;
+            lblHealth.Visible = false;
         }
         private void BtnAttack_Click(object sender, EventArgs e)
         {
@@ -214,5 +242,9 @@ namespace StartGame
 
         }
 
+        private void gbGameView_TextChanged(object sender, EventArgs e)
+        {
+            pbHealth.Value = player.Health;
+        }
     }
 }

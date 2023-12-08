@@ -39,13 +39,15 @@
             gbGameView = new GroupBox();
             tbGameLog = new TextBox();
             GameTimer = new System.Windows.Forms.Timer(components);
+            pbHealth = new ProgressBar();
+            lblHealth = new Label();
             tblActionLayout.SuspendLayout();
             gbGameView.SuspendLayout();
             SuspendLayout();
             // 
             // Title
             // 
-            Title.Font = new Font("Segoe UI", 25F, FontStyle.Regular, GraphicsUnit.Point);
+            Title.Font = new Font("Showcard Gothic", 24.75F, FontStyle.Regular, GraphicsUnit.Point);
             Title.ForeColor = Color.CornflowerBlue;
             Title.Location = new Point(147, -4);
             Title.Name = "Title";
@@ -58,7 +60,7 @@
             // StartGameBtn
             // 
             StartGameBtn.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            StartGameBtn.Location = new Point(623, 23);
+            StartGameBtn.Location = new Point(623, 44);
             StartGameBtn.Name = "StartGameBtn";
             StartGameBtn.Size = new Size(149, 36);
             StartGameBtn.TabIndex = 1;
@@ -142,6 +144,7 @@
             gbGameView.TabStop = false;
             gbGameView.Text = "gbGameView";
             gbGameView.Visible = false;
+            gbGameView.TextChanged += gbGameView_TextChanged;
             // 
             // tbGameLog
             // 
@@ -158,12 +161,36 @@
             // 
             GameTimer.Tick += MainTimerEvent;
             // 
+            // pbHealth
+            // 
+            pbHealth.ForeColor = Color.FromArgb(128, 255, 128);
+            pbHealth.Location = new Point(623, 342);
+            pbHealth.Name = "pbHealth";
+            pbHealth.Size = new Size(149, 23);
+            pbHealth.TabIndex = 9;
+            pbHealth.Value = 100;
+            pbHealth.Visible = false;
+            // 
+            // lblHealth
+            // 
+            lblHealth.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            lblHealth.ForeColor = Color.Lime;
+            lblHealth.Location = new Point(623, 306);
+            lblHealth.Name = "lblHealth";
+            lblHealth.Size = new Size(149, 33);
+            lblHealth.TabIndex = 10;
+            lblHealth.Text = "HEALTH";
+            lblHealth.TextAlign = ContentAlignment.MiddleCenter;
+            lblHealth.Visible = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
             ClientSize = new Size(805, 450);
+            Controls.Add(lblHealth);
+            Controls.Add(pbHealth);
             Controls.Add(gbGameView);
             Controls.Add(StartGameBtn);
             Controls.Add(Title);
@@ -189,5 +216,7 @@
         private GroupBox gbGameView;
         private System.Windows.Forms.Timer GameTimer;
         private TextBox tbGameLog;
+        private ProgressBar pbHealth;
+        private Label lblHealth;
     }
 }

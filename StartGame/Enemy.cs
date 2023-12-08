@@ -32,11 +32,8 @@ namespace MyRPG
         {
             Health = Health - hit_value; 
 
-            Console.WriteLine(Name + " was hit for " + hit_value + " damage! And has " + Health + " remaining.");
-
             if (Health <= 0)
             {
-                Console.WriteLine(Name + " was slain!");
                 IsDead = true;
             }
         }

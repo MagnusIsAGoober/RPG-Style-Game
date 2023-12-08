@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,8 +29,10 @@ namespace MyRPG
         //hit value is the amount of damage an player will take
         public void GetsHit(int hit_value)
         {
+            Health = Health - hit_value;
 
-            Console.WriteLine(Name + " was hit for " + hit_value + " damage! And has " + Health + " remaining.");
+            Console.WriteLine(Name + " was hit for " + hit_value + " damage! You now have" + Health + " remaining." + Environment.NewLine);
+            
 
 
             if (Health <= 0)
@@ -48,7 +51,6 @@ namespace MyRPG
 
         public void Die()
         {
-            Console.WriteLine(Name + " was slain!");
             IsDead = true;
         }
     }
