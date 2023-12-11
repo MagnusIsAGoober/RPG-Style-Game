@@ -37,12 +37,14 @@ namespace StartGame
 
         public void StartGame(String playerName)
         {
-            player.Health = 100;
+            
             //Assign the player name
             player = new Player()
             {
                 Name = playerName
             };
+
+            player.Health = 100;
 
             //Init the random class
             random = new Random();
@@ -174,6 +176,7 @@ namespace StartGame
 
                 GameOver("You were slain..." + Environment.NewLine);
             }
+            /*
             if (pbHealth.Value < 0)
             {
                 pbHealth.Value = 0;
@@ -182,6 +185,7 @@ namespace StartGame
             {
                 pbHealth.Value = player.Health;
             }
+            */
 
         }
 
