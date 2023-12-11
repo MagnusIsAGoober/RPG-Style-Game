@@ -68,30 +68,17 @@ namespace StartGame
         }
         private void PerformAction(string Action)
         {
-            int hit_value;
-            //check action
-            switch (Action)
+            if (!player.IsDead)
             {
-                case "1":
-                    //Write out the attack text
-                    tbGameLog.AppendText("You used single attack on the " + currentEnemy.Name + Environment.NewLine);
+                int hit_value;
+                //check action
+                switch (Action)
+                {
+                    case "1":
+                        //Write out the attack text
+                        tbGameLog.AppendText("You used single attack on the " + currentEnemy.Name + Environment.NewLine);
 
 
-                    hit_value = random.Next(1, maxPlayerAttackDMG);
-
-                    // Attack the enemy
-                    currentEnemy.GetsHit(hit_value);
-
-                    //write it got hit
-                    tbGameLog.AppendText(currentEnemy.Name + " was hit for " + hit_value + " damage! And has " + currentEnemy.Health + " health remaining." + Environment.NewLine);
-                    break;
-                case "2":
-                    //Write out the multi attack text
-                    tbGameLog.AppendText("You used multi attack on the " + currentEnemy.Name + Environment.NewLine);
-
-                    // Loop three times to perform the multi attack
-                    for (int i = 0; i < 3; i++)
-                    {
                         hit_value = random.Next(1, maxPlayerAttackDMG);
 
                         // Attack the enemy
@@ -99,93 +86,113 @@ namespace StartGame
 
                         //write it got hit
                         tbGameLog.AppendText(currentEnemy.Name + " was hit for " + hit_value + " damage! And has " + currentEnemy.Health + " health remaining." + Environment.NewLine);
+                        break;
+                    case "2":
+                        //Write out the multi attack text
+                        tbGameLog.AppendText("You used multi attack on the " + currentEnemy.Name + Environment.NewLine);
 
-                        //check if enemy is dead
-                        if (currentEnemy.IsDead == true)
+                        // Loop three times to perform the multi attack
+                        for (int i = 0; i < 3; i++)
                         {
-                            break;
+                            hit_value = random.Next(1, maxPlayerAttackDMG);
+
+                            // Attack the enemy
+                            currentEnemy.GetsHit(hit_value);
+
+                            //write it got hit
+                            tbGameLog.AppendText(currentEnemy.Name + " was hit for " + hit_value + " damage! And has " + currentEnemy.Health + " health remaining." + Environment.NewLine);
+
+                            //check if enemy is dead
+                            if (currentEnemy.IsDead == true)
+                            {
+                                break;
+                            }
+
                         }
+                        break;
+                    case "3":
+                        //Write out the guard text
+                        tbGameLog.AppendText("You use guard!" + Environment.NewLine);
+
+                        // set that the player guarding is true
+                        player.IsGuarding = true;
+                        break;
+                    case "4":
+
+                        int amount_to_heal = random.Next(1, 15);
+
+                        player.Heal(amount_to_heal);
+                        //Write out the heal text
+                        tbGameLog.AppendText("You use heal!" + Environment.NewLine);
+
+                        tbGameLog.AppendText(player.Name + " was healed for " + amount_to_heal + " Health! You now have" + player.Health + " remaining." + Environment.NewLine);
+                        // set that the player guarding is true
+                        player.Heal(random.Next(1, 15));
+                        break;
+                    default:
+                        break;
+                }
+
+
+                //check if enemy is dead
+                if (!currentEnemy.IsDead)
+                {
+                    if (player.IsGuarding)
+                    {
+                        tbGameLog.AppendText(player.Name + " gaurded the blow and was unharmed!" + Environment.NewLine);
+
+                        //remove guard
+                        player.IsGuarding = false;
+                    }
+                    else
+                    {
+                        //have the enemy attack the player and show via txt
+                        player.GetsHit(random.Next(1, currentEnemy.MaxAttackDMG));
+                        tbGameLog.AppendText(currentEnemy.Name + " Attacks the player, Leaving the player with " + player.Health + "Health" + Environment.NewLine + Environment.NewLine);
 
                     }
-                    break;
-                case "3":
-                    //Write out the guard text
-                    tbGameLog.AppendText("You use guard!" + Environment.NewLine);
 
-                    // set that the player guarding is true
-                    player.IsGuarding = true;
-                    break;
-                case "4":
 
-                    int amount_to_heal = random.Next(1, 15);
-
-                    player.Heal(amount_to_heal);
-                    //Write out the heal text
-                    tbGameLog.AppendText("You use heal!" + Environment.NewLine);
-
-                    tbGameLog.AppendText(player.Name + " was healed for " + amount_to_heal + " Health! You now have" + player.Health + " remaining." + Environment.NewLine);
-                    // set that the player guarding is true
-                    player.Heal(random.Next(1, 15));
-                    break;
-                default:
-                    break;
-            }
-
-            //check if enemy is dead
-            if (!currentEnemy.IsDead)
-            {
-                if (player.IsGuarding)
-                {
-                    tbGameLog.AppendText(Name + " gaurded the blow and was unharmed!" + Environment.NewLine);
-
-                    //remove guard
-                    player.IsGuarding = false;
                 }
-                else
+
+
+                //check if player is dead
+                if (currentEnemy.IsDead)
                 {
+
+                    tbGameLog.AppendText(currentEnemy.Name + " was slain " + Environment.NewLine);
+
                     //have the enemy attack the player and show via txt
-                    player.GetsHit(random.Next(1, currentEnemy.MaxAttackDMG));
-                    tbGameLog.AppendText(currentEnemy.Name + "Attacks the player, Leaving the player with " + player.Health + "Health" + Environment.NewLine + Environment.NewLine);
+                    if (currentEnemy is Boss)
+                    {
+                        GameOver("Congrats! " + player.Name + " You have defeated the final boss!" + Environment.NewLine);
+                    }
+                    else
+                    {
+                        currentEnemy = new Boss();
+                        //write the text that we encountered the boos
+                        tbGameLog.AppendText(player.Name + " You have encountered a " + currentEnemy.Name + "!" + Environment.NewLine + "What would you like to do?" + Environment.NewLine);
 
+                    }
+                }
+                else if (player.IsDead)
+                {
+
+                    GameOver("You were slain..." + Environment.NewLine);
                 }
 
 
-            }
-
-            //check if player is dead
-            if (currentEnemy.IsDead)
-            {
-
-                tbGameLog.AppendText(currentEnemy.Name + " was slain " + Environment.NewLine);
-
-                //have the enemy attack the player and show via txt
-                if (currentEnemy is Boss)
+                if (player.Health < 0)
                 {
-                    GameOver("Congrats! " + player.Name + " You have defeated the final boss!" + Environment.NewLine);
+                    player.Health = 0;
                 }
                 else
                 {
-                    currentEnemy = new Boss();
-                    //write the text that we encountered the boos
-                    tbGameLog.AppendText(player.Name + " You have encountered a " + currentEnemy.Name + "!" + Environment.NewLine + "What would you like to do?" + Environment.NewLine);
-
+                    pbHealth.Value = player.Health;
                 }
             }
-            else if (player.IsDead)
-            {
-
-                GameOver("You were slain..." + Environment.NewLine);
-            }
-            /*
-            if (pbHealth.Value < 0)
-            {
-                pbHealth.Value = 0;
-            }
-            else
-            {
-                pbHealth.Value = player.Health;
-            }
-            */
+            
+            
 
         }
 
@@ -197,9 +204,14 @@ namespace StartGame
             StartGameBtn.Visible = true;
             StartGameBtn.Text = "Restart?";
 
-            gbGameView.Visible = false;
-            pbHealth.Visible = false;
-            lblHealth.Visible = false;
+            if (player.Health < 0)
+            {
+                player.Health = 0;
+            }
+            else
+            {
+                pbHealth.Value = player.Health;
+            }
         }
         private void BtnAttack_Click(object sender, EventArgs e)
         {
@@ -233,12 +245,6 @@ namespace StartGame
 
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
-            /*
-            if (e.KeyCode == Keys.A)
-            {
-                goLeft = true;
-            }
-            */
         }
 
         private void KeyIsUp(object sender, KeyEventArgs e)
