@@ -85,7 +85,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "NameForm";
-            Text = "Form2";
+            Text = "Name";
             ResumeLayout(false);
             PerformLayout();
         }

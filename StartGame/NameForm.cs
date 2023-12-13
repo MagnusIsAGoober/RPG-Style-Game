@@ -14,8 +14,8 @@ namespace StartGame
     public partial class NameForm : Form
     {
 
-        private Form1 caller;
-        public NameForm(Form1 callerForm)
+        private FormMain caller;
+        public NameForm(FormMain callerForm)
         {
             InitializeComponent();
 

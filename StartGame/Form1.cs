@@ -1,9 +1,10 @@
 using MyRPG;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace StartGame
 {
-    public partial class Form1 : Form
+    public partial class FormMain : Form
     {
         /*
         bool goLeft, goRight, goUp, goDown, gameOver;
@@ -20,7 +21,9 @@ namespace StartGame
         private Random random;
         private const int maxPlayerAttackDMG = 10;
 
-        public Form1()
+        int recentlyPrintedLineIndex = 0;
+
+        public FormMain()
         {
             InitializeComponent();
         }
@@ -37,7 +40,7 @@ namespace StartGame
 
         public void StartGame(String playerName)
         {
-            
+
             //Assign the player name
             player = new Player()
             {
@@ -66,6 +69,7 @@ namespace StartGame
             //write the text that we encountered the enemy
             tbGameLog.AppendText(playerName + " You have encountered a " + currentEnemy.Name + "!" + Environment.NewLine + "What would you like to do?" + Environment.NewLine);
         }
+
         private void PerformAction(string Action)
         {
             if (!player.IsDead)
@@ -76,7 +80,8 @@ namespace StartGame
                 {
                     case "1":
                         //Write out the attack text
-                        tbGameLog.AppendText("You used single attack on the " + currentEnemy.Name + Environment.NewLine);
+                        PrintNewLine("You used single attack on the " + currentEnemy.Name, Color.Yellow );
+                        //tbGameLog.AppendText("You used single attack on the " + currentEnemy.Name + Environment.NewLine);
 
 
                         hit_value = random.Next(1, maxPlayerAttackDMG);
@@ -89,7 +94,9 @@ namespace StartGame
                         break;
                     case "2":
                         //Write out the multi attack text
-                        tbGameLog.AppendText("You used multi attack on the " + currentEnemy.Name + Environment.NewLine);
+
+                        PrintNewLine("You used multi attack on the " + currentEnemy.Name, Color.Yellow);
+                        //tbGameLog.AppendText("You used multi attack on the " + currentEnemy.Name + Environment.NewLine);
 
                         // Loop three times to perform the multi attack
                         for (int i = 0; i < 3; i++)
@@ -112,7 +119,10 @@ namespace StartGame
                         break;
                     case "3":
                         //Write out the guard text
-                        tbGameLog.AppendText("You use guard!" + Environment.NewLine);
+
+                        //TextColorDialogue.ShowDialog(this);
+                        PrintNewLine("You use guard!", Color.Red);
+                        //tbGameLog.AppendText("You use guard!" + Environment.NewLine);
 
                         // set that the player guarding is true
                         player.IsGuarding = true;
@@ -123,7 +133,9 @@ namespace StartGame
 
                         player.Heal(amount_to_heal);
                         //Write out the heal text
-                        tbGameLog.AppendText("You use heal!" + Environment.NewLine);
+
+                        PrintNewLine("You use heal!", Color.Yellow);
+                        //tbGameLog.AppendText("You use heal!" + Environment.NewLine);
 
                         tbGameLog.AppendText(player.Name + " was healed for " + amount_to_heal + " Health! You now have" + player.Health + " remaining." + Environment.NewLine);
                         // set that the player guarding is true
@@ -178,7 +190,7 @@ namespace StartGame
                 else if (player.IsDead)
                 {
 
-                    GameOver("You were slain..." + Environment.NewLine);
+                    GameOver("You were slain...");
                 }
 
 
@@ -191,15 +203,15 @@ namespace StartGame
                     pbHealth.Value = player.Health;
                 }
             }
-            
-            
+
+
 
         }
 
         private void GameOver(string GameOverText)
         {
 
-            tbGameLog.AppendText(GameOverText);
+            PrintNewLine(GameOverText, Color.Red);
 
             StartGameBtn.Visible = true;
             StartGameBtn.Text = "Restart?";
@@ -212,6 +224,40 @@ namespace StartGame
             {
                 pbHealth.Value = player.Health;
             }
+        }
+
+
+        private void PrintNewLine(string line, Color LineColor , int HighlightLine = 2)
+        {
+            // Update the TextBox or RichTextBox content
+            tbGameLog.AppendText(line + Environment.NewLine);
+
+
+            // Update the recently printed line index
+            recentlyPrintedLineIndex = tbGameLog.Lines.Length - HighlightLine;
+
+            // Highlight the most recently printed line
+            HighlightRecentlyPrintedLine(LineColor);
+        }
+
+        private void HighlightRecentlyPrintedLine(Color LineColor)
+        {
+            // Clear previous formatting
+            tbGameLog.SelectionStart = 0;
+            tbGameLog.SelectionLength = tbGameLog.Text.Length;
+            tbGameLog.SelectionBackColor = tbGameLog.BackColor;
+
+            // Set the background color for the most recently printed line
+            if (recentlyPrintedLineIndex >= 0 && recentlyPrintedLineIndex < tbGameLog.Lines.Length)
+            {
+                tbGameLog.SelectionStart = tbGameLog.GetFirstCharIndexFromLine(recentlyPrintedLineIndex);
+                tbGameLog.SelectionLength = tbGameLog.Lines[recentlyPrintedLineIndex].Length;
+                tbGameLog.SelectionColor = LineColor; // Set your desired highlighting color
+            }
+
+            // Move the caret to the end to avoid selection highlighting interference
+            tbGameLog.SelectionStart = tbGameLog.Text.Length;
+            tbGameLog.ScrollToCaret();
         }
         private void BtnAttack_Click(object sender, EventArgs e)
         {
@@ -255,6 +301,16 @@ namespace StartGame
         private void gbGameView_TextChanged(object sender, EventArgs e)
         {
             pbHealth.Value = player.Health;
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
