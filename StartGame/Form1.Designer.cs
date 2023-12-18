@@ -37,8 +37,10 @@
             BtnAttack = new Button();
             btnMulti = new Button();
             gbGameView = new GroupBox();
-            lblHealth = new Label();
-            pbHealth = new ProgressBar();
+            lblEnemyHealth = new Label();
+            pbEnemyHealth = new ProgressBar();
+            lblPlayerHealth = new Label();
+            pbPlayerHealth = new ProgressBar();
             tbGameLog = new RichTextBox();
             GameTimer = new System.Windows.Forms.Timer(components);
             TextColorDialogue = new ColorDialog();
@@ -137,8 +139,10 @@
             // gbGameView
             // 
             gbGameView.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            gbGameView.Controls.Add(lblHealth);
-            gbGameView.Controls.Add(pbHealth);
+            gbGameView.Controls.Add(lblEnemyHealth);
+            gbGameView.Controls.Add(pbEnemyHealth);
+            gbGameView.Controls.Add(lblPlayerHealth);
+            gbGameView.Controls.Add(pbPlayerHealth);
             gbGameView.Controls.Add(tblActionLayout);
             gbGameView.Controls.Add(tbGameLog);
             gbGameView.Location = new Point(12, 338);
@@ -150,29 +154,56 @@
             gbGameView.Visible = false;
             gbGameView.TextChanged += gbGameView_TextChanged;
             // 
-            // lblHealth
+            // lblEnemyHealth
             // 
-            lblHealth.Anchor = AnchorStyles.Bottom;
-            lblHealth.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
-            lblHealth.ForeColor = Color.Lime;
-            lblHealth.Location = new Point(1155, 160);
-            lblHealth.Name = "lblHealth";
-            lblHealth.Size = new Size(149, 33);
-            lblHealth.TabIndex = 10;
-            lblHealth.Text = "HEALTH";
-            lblHealth.TextAlign = ContentAlignment.MiddleCenter;
-            lblHealth.Visible = false;
+            lblEnemyHealth.Anchor = AnchorStyles.Bottom;
+            lblEnemyHealth.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            lblEnemyHealth.ForeColor = Color.Red;
+            lblEnemyHealth.Location = new Point(36, 160);
+            lblEnemyHealth.Name = "lblEnemyHealth";
+            lblEnemyHealth.Size = new Size(149, 33);
+            lblEnemyHealth.TabIndex = 13;
+            lblEnemyHealth.Text = "ENEMY HEALTH";
+            lblEnemyHealth.TextAlign = ContentAlignment.MiddleCenter;
+            lblEnemyHealth.Visible = false;
             // 
-            // pbHealth
+            // pbEnemyHealth
             // 
-            pbHealth.Anchor = AnchorStyles.Bottom;
-            pbHealth.ForeColor = Color.FromArgb(128, 255, 128);
-            pbHealth.Location = new Point(1155, 196);
-            pbHealth.Name = "pbHealth";
-            pbHealth.Size = new Size(149, 23);
-            pbHealth.TabIndex = 9;
-            pbHealth.Value = 100;
-            pbHealth.Visible = false;
+            pbEnemyHealth.Anchor = AnchorStyles.Bottom;
+            pbEnemyHealth.BackColor = Color.Fuchsia;
+            pbEnemyHealth.ForeColor = Color.Red;
+            pbEnemyHealth.Location = new Point(36, 196);
+            pbEnemyHealth.Name = "pbEnemyHealth";
+            pbEnemyHealth.RightToLeft = RightToLeft.No;
+            pbEnemyHealth.Size = new Size(149, 23);
+            pbEnemyHealth.TabIndex = 12;
+            pbEnemyHealth.Value = 100;
+            pbEnemyHealth.Visible = false;
+            // 
+            // lblPlayerHealth
+            // 
+            lblPlayerHealth.Anchor = AnchorStyles.Bottom;
+            lblPlayerHealth.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point);
+            lblPlayerHealth.ForeColor = Color.Lime;
+            lblPlayerHealth.Location = new Point(1155, 160);
+            lblPlayerHealth.Name = "lblPlayerHealth";
+            lblPlayerHealth.Size = new Size(149, 33);
+            lblPlayerHealth.TabIndex = 10;
+            lblPlayerHealth.Text = "PLAYER HEALTH";
+            lblPlayerHealth.TextAlign = ContentAlignment.MiddleCenter;
+            lblPlayerHealth.Visible = false;
+            // 
+            // pbPlayerHealth
+            // 
+            pbPlayerHealth.Anchor = AnchorStyles.Bottom;
+            pbPlayerHealth.BackColor = Color.Black;
+            pbPlayerHealth.ForeColor = Color.Lime;
+            pbPlayerHealth.Location = new Point(1155, 196);
+            pbPlayerHealth.Name = "pbPlayerHealth";
+            pbPlayerHealth.Size = new Size(149, 23);
+            pbPlayerHealth.TabIndex = 9;
+            pbPlayerHealth.Value = 100;
+            pbPlayerHealth.Visible = false;
             // 
             // tbGameLog
             // 
@@ -224,9 +255,11 @@
         private Button btnMulti;
         private GroupBox gbGameView;
         private System.Windows.Forms.Timer GameTimer;
-        private ProgressBar pbHealth;
-        private Label lblHealth;
+        private ProgressBar pbPlayerHealth;
+        private Label lblPlayerHealth;
         private RichTextBox tbGameLog;
         private ColorDialog TextColorDialogue;
+        private Label lblEnemyHealth;
+        private ProgressBar pbEnemyHealth;
     }
 }

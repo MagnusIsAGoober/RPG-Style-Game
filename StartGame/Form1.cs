@@ -56,8 +56,8 @@ namespace StartGame
             StartGameBtn.Visible = false;
             tblActionLayout.Visible = true;
             gbGameView.Visible = true;
-            pbHealth.Visible = true;
-            lblHealth.Visible = true;
+            pbPlayerHealth.Visible = true;
+            lblPlayerHealth.Visible = true;
 
 
             //Write out the start game text to the textbox
@@ -80,7 +80,7 @@ namespace StartGame
                 {
                     case "1":
                         //Write out the attack text
-                        PrintNewLine("You used single attack on the " + currentEnemy.Name, Color.Yellow );
+                        PrintNewLine("You used single attack on the " + currentEnemy.Name, Color.Yellow);
                         //tbGameLog.AppendText("You used single attack on the " + currentEnemy.Name + Environment.NewLine);
 
 
@@ -121,7 +121,7 @@ namespace StartGame
                         //Write out the guard text
 
                         //TextColorDialogue.ShowDialog(this);
-                        PrintNewLine("You use guard!", Color.Red);
+                        PrintNewLine("You use guard!", Color.Blue);
                         //tbGameLog.AppendText("You use guard!" + Environment.NewLine);
 
                         // set that the player guarding is true
@@ -134,7 +134,7 @@ namespace StartGame
                         player.Heal(amount_to_heal);
                         //Write out the heal text
 
-                        PrintNewLine("You use heal!", Color.Yellow);
+                        PrintNewLine("You use heal!", Color.Green);
                         //tbGameLog.AppendText("You use heal!" + Environment.NewLine);
 
                         tbGameLog.AppendText(player.Name + " was healed for " + amount_to_heal + " Health! You now have" + player.Health + " remaining." + Environment.NewLine);
@@ -200,7 +200,7 @@ namespace StartGame
                 }
                 else
                 {
-                    pbHealth.Value = player.Health;
+                    pbPlayerHealth.Value = player.Health;
                 }
             }
 
@@ -222,12 +222,12 @@ namespace StartGame
             }
             else
             {
-                pbHealth.Value = player.Health;
+                pbPlayerHealth.Value = player.Health;
             }
         }
 
 
-        private void PrintNewLine(string line, Color LineColor , int HighlightLine = 2)
+        private void PrintNewLine(string line, Color LineColor, int HighlightLine = 2)
         {
             // Update the TextBox or RichTextBox content
             tbGameLog.AppendText(line + Environment.NewLine);
@@ -300,7 +300,7 @@ namespace StartGame
 
         private void gbGameView_TextChanged(object sender, EventArgs e)
         {
-            pbHealth.Value = player.Health;
+            pbPlayerHealth.Value = player.Health;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
